@@ -5,28 +5,18 @@ import { task, tasks } from "@/types/context"
 const TASKS_KEY = "tasks"
 
 export const getTasks = () => {
-  //   const [tasks, setTasks] = useState<tasks | []>([])
+  // Check if localStorage is available in the current environment.
+  const isLocalStorageAvailable = typeof localStorage !== "undefined"
 
-  //   function fetchTasks() {
-  //     const tasks = localStorage.getItem(TASKS_KEY)
-  //     console.log("tasks localStorage:", JSON.parse(tasks!))
-
-  //     if (tasks) setTasks(JSON.parse(tasks))
-  //     setTasks([])
-  //   }
-
-  //   useEffect(() => {
-  //     fetchTasks()
-  //   }, [])
-
-  //   return tasks
+  if (!isLocalStorageAvailable) {
+    console.warn("localStorage is not available in this environment.")
+    return []
+  }
 
   const rawTasks = localStorage.getItem(TASKS_KEY)
-
   if (!rawTasks) return []
 
   const tasks = JSON.parse(rawTasks)
-
   return tasks
 }
 
