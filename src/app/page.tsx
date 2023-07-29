@@ -21,6 +21,10 @@ export default function Home() {
         <TechStack />
         <PageHeaderHeading>Task Management System</PageHeaderHeading>
         <PageHeaderDescription>Task time! Create, edit, delete - you're in charge! Check out your tasks in a cool table below. Let's rock those to-dos!</PageHeaderDescription>
+        <p className="text-muted-foreground">
+          Discover the endless possibilities with our API! (If we built one) 🌟 By harnessing its power, we can effortlessly access todos with their respective titles, descriptions, and associated usernames. Now, here comes the exciting part: using a select box, you can easily filter the table based
+          on different usernames. 🎛️ Embrace the flexibility and take your todo management to the next level! 🚀
+        </p>
         <section className="flex w-full items-center space-x-4 pb-8 pt-4 md:pb-10">
           <CreateTask />
           <a href="mailto:ziaurzai@gmail.com" className={cn(buttonVariants({ variant: "outline" }), "rounded-[6px]")}>
