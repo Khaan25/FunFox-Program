@@ -23,7 +23,7 @@ module.exports = {
     "",
     "^[./]",
   ],
-  printWidth: 300,
+  printWidth: 150,
   importOrderSeparation: false,
   importOrderSortSpecifiers: true,
   importOrderBuiltinModulesToTop: true,

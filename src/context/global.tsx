@@ -3,11 +3,7 @@
 import { createContext, ReactNode, useContext, useState } from "react"
 
 import { task, TasksProps, UpdateTaskContextProps } from "@/types/context"
-import {
-  deleteTaskLocalStorage,
-  getTasks,
-  setTaskLocalStorage,
-} from "@/lib/tasks"
+import { deleteAllTasksLocalStorage, deleteTaskLocalStorage, getTasks, setTaskLocalStorage, toggleTaskStatusLocalStorage } from "@/lib/tasks"
 import { useToast } from "@/components/ui/use-toast"
 
 const TaskContext = createContext<TasksProps>({ tasks: [] })
@@ -25,14 +21,12 @@ export function useTaskContext() {
 export function useTaskUpdateContext() {
   const context = useContext(PinContextUpdate)
   if (context === null) {
-    throw new Error(
-      "useTaskUpdateContext must be used within a PinContextUpdate.Provider"
-    )
+    throw new Error("useTaskUpdateContext must be used within a PinContextUpdate.Provider")
   }
   return context
 }
 
-export function PinContextProvider({ children }: { children: ReactNode }) {
+export function TaskContextProvider({ children }: { children: ReactNode }) {
   const { toast } = useToast()
   const [tasks, setTasks] = useState<TasksProps>({
     tasks: getTasks(),
@@ -61,15 +55,29 @@ export function PinContextProvider({ children }: { children: ReactNode }) {
     toast({ description: "Task deleted successfully!" })
   }
 
+  function toggleComplete(task: task) {
+    toggleTaskStatusLocalStorage(task)
+    refetchTasks()
+    toast({ description: "Task Status Updated successfully!" })
+  }
+
   function deleteAlTasks() {
-    setTasks({ tasks: [] })
+    deleteAllTasksLocalStorage()
+    refetchTasks()
     toast({ description: "All Tasks deleted successfully!" })
   }
 
   return (
     <TaskContext.Provider value={tasks}>
       <PinContextUpdate.Provider
-        value={{ addTask, editTask, deleteTask, deleteAlTasks, refetchTasks }}
+        value={{
+          addTask,
+          editTask,
+          deleteTask,
+          deleteAlTasks,
+          refetchTasks,
+          toggleComplete,
+        }}
       >
         {children}
       </PinContextUpdate.Provider>

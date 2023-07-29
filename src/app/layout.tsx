@@ -1,4 +1,4 @@
-import { PinContextProvider } from "@/context/global"
+import { TaskContextProvider } from "@/context/global"
 
 import "@/styles/globals.css"
 
@@ -9,6 +9,7 @@ import { siteConfig } from "@/config/site"
 import { interFont } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/toaster"
+import SiteFooter from "@/components/SiteFooter"
 import SiteHeader from "@/components/SiteHeader"
 
 export const metadata: Metadata = {
@@ -48,25 +49,17 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          interFont.className
-        )}
-      >
+      <body className={cn("min-h-screen bg-background font-sans antialiased", interFont.className)}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <PinContextProvider>
+          <TaskContextProvider>
             <SiteHeader />
             <main>{children}</main>
+            <SiteFooter />
             <Toaster />
-          </PinContextProvider>
+          </TaskContextProvider>
         </ThemeProvider>
       </body>
     </html>

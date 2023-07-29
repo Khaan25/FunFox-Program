@@ -58,6 +58,7 @@ export default function CreateTask() {
       isCompleted: false,
     })
     setOpen(false)
+    form.reset()
   }
 
   return (

@@ -5,14 +5,7 @@ import { useTaskUpdateContext } from "@/context/global"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 
 export default function DeleteTasks() {
   const [open, setOpen] = useState(false)
@@ -21,15 +14,14 @@ export default function DeleteTasks() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="ghost">Delete All</Button>
+        <Button variant="ghost" className="whitespace-nowrap">
+          Delete All
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Delete All Tasks</DialogTitle>
-          <DialogDescription>
-            Are you sure you want to delete all tasks? This actions is
-            irreversible.
-          </DialogDescription>
+          <DialogDescription>Are you sure you want to delete all tasks? This actions is irreversible.</DialogDescription>
         </DialogHeader>
 
         <div className="grid grid-cols-2 mt-4 gap-4">

@@ -1,38 +1,18 @@
 "use client"
 
-import { useState } from "react"
+import { Dispatch, SetStateAction } from "react"
 import { useTaskUpdateContext } from "@/context/global"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Pencil } from "lucide-react"
 import { useForm } from "react-hook-form"
-import { v4 as uuidv4 } from "uuid"
 import * as z from "zod"
 
 import { task } from "@/types/context"
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { toast } from "@/components/ui/use-toast"
 
 import { Checkbox } from "../ui/checkbox"
 
@@ -51,8 +31,7 @@ const FormSchema = z.object({
   isCompleted: z.boolean(),
 })
 
-export default function EditTask({ task }: { task: task }) {
-  const [open, setOpen] = useState(false)
+export default function EditTask({ task, open, setOpen }: { task: task; open: boolean; setOpen: Dispatch<SetStateAction<boolean>> }) {
   const { editTask } = useTaskUpdateContext()
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -72,21 +51,20 @@ export default function EditTask({ task }: { task: task }) {
     })
 
     setOpen(false)
+    form.reset()
   }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="!p-2">
-          <Pencil size="20" />
-        </Button>
+        {/* <div className="flex items-center gap-2">
+          <Pencil size="15" /> Edit Task
+        </div> */}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Create Task</DialogTitle>
-          <DialogDescription>
-            Make changes to your task here. Click save when you're done.
-          </DialogDescription>
+          <DialogDescription>Make changes to your task here. Click save when you're done.</DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
@@ -112,11 +90,7 @@ export default function EditTask({ task }: { task: task }) {
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder="Write a little detail about the Task"
-                      className="resize-none"
-                      {...field}
-                    />
+                    <Textarea placeholder="Write a little detail about the Task" className="resize-none" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -129,10 +103,7 @@ export default function EditTask({ task }: { task: task }) {
               render={({ field }) => (
                 <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                   <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
+                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                   </FormControl>
                   <div className="space-y-1 leading-none">
                     <FormLabel>Is Completed</FormLabel>

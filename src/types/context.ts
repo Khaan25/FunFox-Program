@@ -12,6 +12,7 @@ export type UpdateTaskContextProps = {
   addTask: (task: task) => void
   editTask: (task: task) => void
   deleteTask: (task: task) => void
+  toggleComplete: (task: task) => void
   deleteAlTasks: () => void
   refetchTasks: () => void
 }

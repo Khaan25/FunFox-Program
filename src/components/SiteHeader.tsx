@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { Youtube } from "lucide-react"
 
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
@@ -18,11 +19,7 @@ export default function SiteHeader() {
 
         <div className="flex flex-1 items-center space-x-2 justify-end">
           <nav className="flex items-center">
-            <Link
-              href={siteConfig.links.github}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <Link href={siteConfig.links.github} target="_blank" rel="noreferrer">
               <div
                 className={cn(
                   buttonVariants({
@@ -35,11 +32,22 @@ export default function SiteHeader() {
                 <span className="sr-only">GitHub</span>
               </div>
             </Link>
-            <Link
-              href={siteConfig.links.twitter}
-              target="_blank"
-              rel="noreferrer"
-            >
+
+            <Link href={siteConfig.links.youtube} target="_blank" rel="noreferrer">
+              <div
+                className={cn(
+                  buttonVariants({
+                    variant: "ghost",
+                  }),
+                  "w-9 px-0"
+                )}
+              >
+                <Youtube className="h-4 w-4" />
+                <span className="sr-only">Youtube</span>
+              </div>
+            </Link>
+
+            <Link href={siteConfig.links.twitter} target="_blank" rel="noreferrer">
               <div
                 className={cn(
                   buttonVariants({
